@@ -69,6 +69,17 @@ app.get('/api/users/:_id/logs', async (req, res) => {
   res.json({username: user['name'], count: exercises?.length, _id: user['_id'], log: exercises})
 })
 
+
+app.get('/api/users', async (req, res) => {
+  const users = await User.find({})
+  const usersList = []
+  for( var i of users){
+    usersList.push({username: i['name'], _id: i['_id']})
+  }
+  res.json(usersList)
+})
+
+
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
